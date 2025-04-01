@@ -19,9 +19,11 @@ import org.springframework.web.server.ResponseStatusException;
 
 import br.com.fiap.flashink_api.model.Category;
 import br.com.fiap.flashink_api.repository.CategoryRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/categories")
+// @CrossOrigin(origins = "http://localhost:3000")
 public class CategoryController {
 
     private Logger log = LoggerFactory.getLogger(getClass());
@@ -34,7 +36,8 @@ public class CategoryController {
     }
 
     @PostMapping
-    public Category create(@RequestBody Category category) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public Category create(@RequestBody @Valid Category category) {
         log.info("Cadastrando categoria " + category.getName());
         return repository.save(category);
     }
