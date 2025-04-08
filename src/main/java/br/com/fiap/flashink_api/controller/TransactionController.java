@@ -22,7 +22,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Slf4j
 public class TransactionController {
 
-    record TransactionFilter(String description, LocalDate date, BigDecimal amount) {}
+    record TransactionFilter(String description, LocalDate date, BigDecimal amount) {
+    }
 
     @Autowired
     private TransactionRepository repository;
@@ -31,8 +32,10 @@ public class TransactionController {
     public List<Transaction> index(TransactionFilter filter) {
         log.info("Buscando transações com descrição {} e data {} ", filter.description(), filter.date());
 
-        // if (description != null && date != null) return repository.findByDescriptionContainingIgnoringCaseAndDate(description, date);
-        // if (description != null) return repository.findByDescriptionContainingIgnoringCase(description);
+        // if (description != null && date != null) return
+        // repository.findByDescriptionContainingIgnoringCaseAndDate(description, date);
+        // if (description != null) return
+        // repository.findByDescriptionContainingIgnoringCase(description);
         // if (date != null) return repository.findByDate(date);
 
         var probe = Transaction.builder()
