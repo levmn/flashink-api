@@ -3,7 +3,6 @@ package br.com.fiap.flashink_api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,14 +34,12 @@ public class CategoryController {
     private CategoryRepository repository;
 
     @GetMapping
-    @Cacheable
     @Operation(summary = "Listar todas as categorias", description = "Lista todas as categorias salvas para um determinado usuário.", tags = "Category")
     public List<Category> index() {
         return repository.findAll();
     }
 
     @PostMapping
-    @CacheEvict(allEntries = true)
     @Operation(responses = @ApiResponse(responseCode = "400"))
     @ResponseStatus(HttpStatus.CREATED)
     public Category create(@RequestBody @Valid Category category) {
@@ -57,7 +54,6 @@ public class CategoryController {
     }
 
     @DeleteMapping("{id}")
-    @CacheEvict(allEntries = true)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void destroy(@PathVariable Long id) {
         log.info("Apagando categoria " + id);
@@ -65,7 +61,6 @@ public class CategoryController {
     }
 
     @PutMapping("{id}")
-    @CacheEvict(allEntries = true)
     public Category update(@PathVariable Long id, @RequestBody Category category) {
         log.info("Atualizando categoria " + category.toString());
 

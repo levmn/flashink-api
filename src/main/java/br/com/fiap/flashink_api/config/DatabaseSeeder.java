@@ -9,12 +9,15 @@ import java.util.Random;
 import br.com.fiap.flashink_api.model.Category;
 import br.com.fiap.flashink_api.model.Transaction;
 import br.com.fiap.flashink_api.model.TransactionType;
+import br.com.fiap.flashink_api.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import br.com.fiap.flashink_api.repository.CategoryRepository;
 import br.com.fiap.flashink_api.repository.TransactionRepository;
+import br.com.fiap.flashink_api.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 
 @Configuration
@@ -25,6 +28,12 @@ public class DatabaseSeeder {
 
     @Autowired
     private TransactionRepository transactionRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @PostConstruct
     public void init() {
@@ -60,5 +69,21 @@ public class DatabaseSeeder {
                             .build());
         }
         transactionRepository.saveAll(transaction);
+
+        userRepository.saveAll(List.of(
+                User.builder()
+                        .email("rm98276@fiap.com.br")
+                        .password(passwordEncoder.encode("senha1234"))
+                        .role("ADMIN")
+                        .build()
+        ));
+
+        userRepository.saveAll(List.of(
+                User.builder()
+                        .email("email@email.com.br")
+                        .password(passwordEncoder.encode("senha1234"))
+                        .role("USER")
+                        .build()
+        ));
     }
 }
