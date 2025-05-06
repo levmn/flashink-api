@@ -10,6 +10,7 @@ import br.com.fiap.flashink_api.model.Category;
 import br.com.fiap.flashink_api.model.Transaction;
 import br.com.fiap.flashink_api.model.TransactionType;
 import br.com.fiap.flashink_api.model.User;
+import br.com.fiap.flashink_api.model.UserRole;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -37,11 +38,26 @@ public class DatabaseSeeder {
 
     @PostConstruct
     public void init() {
+
+        var allan = User.builder()
+                        .email("rm98276@fiap.com.br")
+                        .password(passwordEncoder.encode("senha1234"))
+                        .role(UserRole.ADMIN)
+                        .build();
+
+        var teste = User.builder()
+                        .email("email@email.com.br")
+                        .password(passwordEncoder.encode("senha1234"))
+                        .role(UserRole.USER)
+                        .build();
+
+        userRepository.saveAll(List.of(allan, teste));
+
         var categories = List.of(
-                Category.builder().name("Old School").icon("Anchor").build(),
-                Category.builder().name("Neo Tradicional").icon("Feather").build(),
-                Category.builder().name("Minimalista").icon("Dot").build(),
-                Category.builder().name("Blackwork").icon("Triangle").build());
+                Category.builder().name("Old School").icon("Anchor").user(allan).build(),
+                Category.builder().name("Neo Tradicional").icon("Feather").user(allan).build(),
+                Category.builder().name("Minimalista").icon("Dot").user(allan).build(),
+                Category.builder().name("Blackwork").icon("Triangle").user(teste).build());
 
         categoryRepository.saveAll(categories);
 
@@ -70,20 +86,6 @@ public class DatabaseSeeder {
         }
         transactionRepository.saveAll(transaction);
 
-        userRepository.saveAll(List.of(
-                User.builder()
-                        .email("rm98276@fiap.com.br")
-                        .password(passwordEncoder.encode("senha1234"))
-                        .role("ADMIN")
-                        .build()
-        ));
 
-        userRepository.saveAll(List.of(
-                User.builder()
-                        .email("email@email.com.br")
-                        .password(passwordEncoder.encode("senha1234"))
-                        .role("USER")
-                        .build()
-        ));
     }
 }

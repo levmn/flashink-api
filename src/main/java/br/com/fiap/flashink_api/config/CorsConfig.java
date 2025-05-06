@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@Configuration
+// @Configuration - Isso estar comentado desabilita a utilização no spring, ou seja, é um arquivo inútil
 public class CorsConfig implements WebMvcConfigurer {
 
     @Override

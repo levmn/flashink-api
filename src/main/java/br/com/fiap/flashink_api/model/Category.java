@@ -1,9 +1,12 @@
 package br.com.fiap.flashink_api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -31,25 +34,7 @@ public class Category {
     @Pattern(regexp = "^[A-Z].*", message = "deve começar com letra maiúscula")
     private String icon;
 
-    public Long getId() {
-        return id;
-    }
-
-    public Long setId(Long id) {
-        return this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getIcon() {
-        return icon;
-    }
-
-    @Override
-    public String toString() {
-        return "Category [id=" + id + ", name=" + name + ", icon=" + icon + "]";
-    }
-
+    @JsonIgnore
+    @ManyToOne
+    private User user;
 }
