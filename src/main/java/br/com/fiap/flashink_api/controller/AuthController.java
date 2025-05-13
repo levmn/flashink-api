@@ -6,12 +6,12 @@ import br.com.fiap.flashink_api.model.Token;
 import br.com.fiap.flashink_api.model.User;
 import br.com.fiap.flashink_api.service.AuthService;
 import br.com.fiap.flashink_api.service.TokenService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 public class AuthController {
